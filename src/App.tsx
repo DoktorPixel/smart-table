@@ -12,6 +12,7 @@ import {
   Container,
   CircularProgress,
   Typography,
+  Box,
 } from "@mui/material";
 
 const App: React.FC = () => {
@@ -32,65 +33,84 @@ const App: React.FC = () => {
 
   return (
     <Container maxWidth="lg">
-      <Typography variant="h2" align="center" gutterBottom>
+      <Typography variant="h3" align="center" gutterBottom>
         User Management Table
       </Typography>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <TextField
-                label="Name"
-                value={filters.name}
-                onChange={handleFilterChange("name")}
-                fullWidth
-              />
-            </TableCell>
-            <TableCell>
-              <TextField
-                label="Username"
-                value={filters.username}
-                onChange={handleFilterChange("username")}
-                fullWidth
-              />
-            </TableCell>
-            <TableCell>
-              <TextField
-                label="Email"
-                value={filters.email}
-                onChange={handleFilterChange("email")}
-                fullWidth
-              />
-            </TableCell>
-            <TableCell>
-              <TextField
-                label="Phone"
-                value={filters.phone}
-                onChange={handleFilterChange("phone")}
-                fullWidth
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {loading ? (
+
+      <Box
+        sx={{
+          boxShadow: 3,
+          border: "1px solid #ddd",
+          borderRadius: 2,
+          overflow: "auto",
+        }}
+      >
+        <Table
+          sx={{
+            "& .MuiTableCell-root": {
+              borderBottom: "1px solid #ccc",
+            },
+            "& .MuiTableHead-root": {
+              backgroundColor: "#f5f5f5",
+            },
+          }}
+        >
+          <TableHead>
             <TableRow>
-              <TableCell colSpan={4} align="center">
-                <CircularProgress />
+              <TableCell>
+                <TextField
+                  label="Name"
+                  value={filters.name}
+                  onChange={handleFilterChange("name")}
+                  fullWidth
+                />
+              </TableCell>
+              <TableCell>
+                <TextField
+                  label="Username"
+                  value={filters.username}
+                  onChange={handleFilterChange("username")}
+                  fullWidth
+                />
+              </TableCell>
+              <TableCell>
+                <TextField
+                  label="Email"
+                  value={filters.email}
+                  onChange={handleFilterChange("email")}
+                  fullWidth
+                />
+              </TableCell>
+              <TableCell>
+                <TextField
+                  label="Phone"
+                  value={filters.phone}
+                  onChange={handleFilterChange("phone")}
+                  fullWidth
+                />
               </TableCell>
             </TableRow>
-          ) : (
-            filteredUsers.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.username}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.phone}</TableCell>
+          </TableHead>
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={4} align="center">
+                  <CircularProgress />
+                </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              filteredUsers.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>{user.username}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.phone}</TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </Box>
     </Container>
   );
 };
